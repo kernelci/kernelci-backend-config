@@ -17,7 +17,6 @@
     - python3-yaml
     - python3-setproctitle
     - python3-zmq
-    - supervisor
   tags:
     - install
     - deps
