@@ -71,6 +71,13 @@
   tags:
     - firewall
     - monitoring
+    
+- name: Allow ZMQ connections
+  ufw:  rule=allow
+        port=5550
+        proto=tcp
+  tags:
+    - firewall
 
 - name: Enable ufw
   ufw: state=enabled
