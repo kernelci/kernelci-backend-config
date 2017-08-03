@@ -39,6 +39,7 @@
     - deps
 
 - name: Disable kernel transparent huge-page defrag
+  when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"
   copy:
     src: 99-thp-defrag.conf
     dest: /etc/sysfs.d/99-thp-defrag.conf
@@ -72,6 +73,29 @@
     - install
     - mongodb
     - deps
+
+- name: Install EPEL7
+  yum:
+        name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+  when: ansible_distribution == "CentOS" and ansible_distribution_major_version == "7"
+  tags:
+    - install
+
+- name: Install MongoDB for CentOS
+  when: ansible_distribution == "CentOS"
+  yum:  pkg={{ item }}
+        state=latest
+  with_items:
+    - mongodb-server
+  tags:
+    - install
+    - mongodb
+    - deps
+
+- name: set mongodb_service fact for CentOS
+  when: ansible_distribution == "CentOS"
+  set_fact:
+    mongodb_service: "mongod"
 
 - name: set mongodb_service fact for Debian
   when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"
