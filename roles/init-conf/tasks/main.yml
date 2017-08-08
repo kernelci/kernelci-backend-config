@@ -51,13 +51,16 @@
     - init
     - upstart
 
-- name: Install celery systemd service
-  template: src=kernelci-celery.service
-            dest=/etc/systemd/system/kernelci-celery.service
+- name: Install celery systemd services
+  template: src={{ item }}.service
+            dest=/etc/systemd/system/{{ item }}.service
             owner=root
             group=root
             mode=0644
   when: ansible_distribution == "Debian"
+  with_items:
+    - kernelci-celery
+    - kernelci-celery-beat
   notify:
     - reload-systemd
   tags:
@@ -74,19 +77,6 @@
   tags:
     - init
     - upstart
-
-- name: Install celery beat systemd service
-  template: src=kernelci-celery-beat.service
-            dest=/etc/systemd/system/kernelci-celery-beat.service
-            owner=root
-            group=root
-            mode=0644
-  when: ansible_distribution == "Debian"
-  notify:
-    - reload-systemd
-  tags:
-    - init
-    - systemd
 
 - name: Enable celery systemd service
   command:  /bin/systemctl enable kernelci-celery.service
