@@ -8,6 +8,7 @@
     - web-server
 
 - name: Install nginx
+  when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"
   apt:  pkg={{ item }}
         state=latest
         update_cache=yes
