@@ -14,6 +14,7 @@
         dest={{ install_base }}/{{ hostname }}
         version={{ git_head }}
         update=yes
+        force=yes
   notify:
     - restart-kernel-ci-backend
     - restart-celery
@@ -30,6 +31,14 @@
   tags:
     - install
     - app
+
+# mock does work on CentOS. Since it is used only for testing, we can remove it
+- name: Disable mock
+  when: ansible_distribution == "CentOS"
+  lineinfile:
+        path: "{{ install_base }}/{{ hostname }}/requirements.txt"
+        regexp: "^mock;*"
+        state: absent
 
 - name: Install pip requirements
   pip:  requirements={{ install_base }}/{{ hostname }}/requirements.txt
