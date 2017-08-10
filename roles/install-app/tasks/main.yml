@@ -110,3 +110,14 @@
     - install
     - app
     - docs
+
+#TODO use ansible_selinux
+- name: Permit nginx to connect to backend
+  when: ansible_distribution == "CentOS"
+  seboolean:
+    name: httpd_can_network_connect
+    state: yes
+    persistent: yes
+  tags:
+    - install
+    - app
