@@ -121,3 +121,15 @@
   tags:
     - install
     - app
+
+# the optionnal yaml.Cloader is never installed by pip
+# This hack install it in virtualenv
+- name: Fix libjson
+  when: ansible_distribution == "CentOS"
+  command: cp /usr/lib64/python2.7/site-packages/_yaml.so /srv/.venv/{{ hostname }}/lib/python2.7/site-packages/
+  notify:
+    - restart-kernel-ci-backend
+    - restart-celery
+  tags:
+    - install
+    - app
