@@ -1,5 +1,17 @@
 ---
 
+- name: Set KernelCI services name fact for CentOS
+  when: ansible_distribution == "CentOS"
+  set_fact:
+   redis_service_name: "redis"
+   mongodb_service_name: "mongod"
+
+- name: Set KernelCI services name fact for Debian/Ubuntu
+  when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu"
+  set_fact:
+   redis_service_name: "redis-server"
+   mongodb_service_name: "mongodb"
+
 - name: Make sure celery run directory exists
   file: path=/var/run/celery
         state=directory
