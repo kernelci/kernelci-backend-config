@@ -35,6 +35,7 @@
     - libsemanage-python
     - python-virtualenv
     - gcc
+    - libyaml-devel
   tags:
     - install
     - deps
