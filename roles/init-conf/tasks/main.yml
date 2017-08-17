@@ -37,7 +37,7 @@
             mode=0644
             owner=root
             group=root
-  when: ansible_distribution == "Debian"
+  when: ansible_distribution == "Debian" or ansible_distribution == "CentOS"
   notify:
     - reload-systemd
   tags:
@@ -47,7 +47,7 @@
 - name: Enable kernelci systemd service
   command:  /bin/systemctl enable {{ init_service }}.service
             creates=/etc/systemd/system/multi-user.target.wants/{{ init_service }}.service
-  when: ansible_distribution == "Debian"
+  when: ansible_distribution == "Debian" or ansible_distribution == "CentOS"
   tags:
     - init
     - systemd
@@ -69,7 +69,7 @@
             owner=root
             group=root
             mode=0644
-  when: ansible_distribution == "Debian"
+  when: ansible_distribution == "Debian" or ansible_distribution == "CentOS"
   with_items:
     - kernelci-celery
     - kernelci-celery-beat
@@ -93,7 +93,7 @@
 - name: Enable celery systemd service
   command:  /bin/systemctl enable {{ item }}.service
             creates=/etc/systemd/system/multi-user.target.wants/{{ item }}.service
-  when: ansible_distribution == "Debian"
+  when: ansible_distribution == "Debian" or ansible_distribution == "CentOS"
   with_items:
     - kernelci-celery
     - kernelci-celery-beat
