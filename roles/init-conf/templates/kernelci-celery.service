@@ -24,12 +24,14 @@ WorkingDirectory={{ install_base }}/{{ hostname }}/app
 ExecStart={{ install_base }}/.venv/{{ hostname }}/bin/python -OO -R \
     {{ install_base }}/.venv/{{ hostname }}/bin/celery worker \
     -Ofair --without-gossip --autoscale=24,6 --loglevel=INFO \
-    --app=taskqueue --pidfile=/tmp/kernelci-{{ kci_app_name }}-celery.pid
+    --app=taskqueue --pidfile=/tmp/kernelci-{{ kci_app_name }}-celery.pid \
+    --user-config=/etc/kernelci/{{ kci_app_name }}/kernelci-celery.cfg
 {% else %}
 ExecStart={{ install_base }}/.venv/{{ hostname }}/bin/python -OO -R \
     {{ install_base }}/.venv/{{ hostname }}/bin/celery worker \
     -Ofair --without-gossip --autoscale=10,2 --loglevel=INFO \
-    --app=taskqueue --pidfile=/tmp/kernelci-{{ kci_app_name }}-celery.pid
+    --app=taskqueue --pidfile=/tmp/kernelci-{{ kci_app_name }}-celery.pid \
+    --user-config=/etc/kernelci/{{ kci_app_name }}/kernelci-celery.cfg
 {% endif %}
 
 [Install]

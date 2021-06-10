@@ -16,7 +16,10 @@ LimitNOFILE=65536
 RestartSec=5
 Restart=always
 WorkingDirectory={{ install_base }}/{{ hostname }}/app
-ExecStart={{ install_base }}/.venv/{{ hostname }}/bin/python -OO -R server.py --buffer-size=1073741824 --port={{ kci_app_port }}
+ExecStart={{ install_base }}/.venv/{{ hostname }}/bin/python -OO -R server.py \
+    --buffer-size=1073741824 \
+    --port={{ kci_app_port }} \
+    --config-file=/etc/kernelci/{{ kci_app_name }}/kernelci-backend.cfg
 
 [Install]
 WantedBy=multi-user.target
