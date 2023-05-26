@@ -3,4 +3,9 @@ role: production
 certname: api.chromeos.staging.kernelci.org
 storage_certname: storage.chromeos.staging.kernelci.org
 kci_storage_fqdn: storage.chromeos.staging.kernelci.org
+<<<<<<< HEAD
 kci_app_name: api.chromeos.staging.kernelci.org
+=======
+kci_app_name: chromeos.staging.kernelci.org
+redis_db: 1
+>>>>>>> 4db13ee... Add redis_db variable
