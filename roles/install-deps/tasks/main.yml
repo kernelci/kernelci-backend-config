@@ -5,17 +5,17 @@
         pkg: [
           'build-essential', 
           'git', 'lsb-release', 
-          'python-apt', 'python-pip', 
+          'python-apt', 'python3-pip', 
           'python-pycurl', 
-          'python-virtualenv', 
+          'python3-virtualenv', 
           'python2.7-dev', 'sysfsutils', 
           'python3', 'python3-yaml', 
           'python3-setproctitle',
           'python3-zmq', 
           'libyaml-dev', 
           'libpython2.7-dev', 
-          'python-selinux', 
-          'python-semanage'
+          'python3-selinux', 
+          'python3-semanage'
         ]
         state: latest
         update_cache: yes
